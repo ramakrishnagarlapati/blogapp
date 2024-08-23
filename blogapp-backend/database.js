@@ -1,9 +1,11 @@
+//import sqlite3
 const sqlite3 = require("sqlite3").verbose();
-//Create a new database
+
+//Create a new database connection
 const db = new sqlite3.Database("./blog.db");
 
 db.serialize(() => {
-  //Create Posts table if not already exists
+  //Create Posts table if it does not already exists
   db.run(`CREATE TABLE IF NOT EXISTS posts(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           title TEXT,
@@ -41,4 +43,5 @@ db.serialize(() => {
   });
 });
 
+//export database for use
 module.exports = db;
