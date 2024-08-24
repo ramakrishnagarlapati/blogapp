@@ -1,5 +1,7 @@
 import "./index.css";
-const PostList = () => {
-  return <h1>PostList</h1>;
+const PostList = ({ blogPosts }) => {
+  const { id, title, content } = blogPosts;
+  console.log(blogPosts);
+  return <ul></ul>;
 };
 export default PostList;

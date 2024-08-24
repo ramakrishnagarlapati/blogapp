@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import Loader from "../../components/Loader";
 import PostList from "../../components/PostList";
+import { AiOutlineSearch } from "react-icons/ai";
 
 import "./index.css";
 
@@ -14,6 +15,9 @@ const apiStatusConstants = {
   inProgress: "IN_PROGRESS", // State when API call is in progress
 };
 const Home = () => {
+  //state to store value searched by user
+  const [searchValue, setSearchValue] = useState("");
+
   // State to store the fetched blog posts data
   const [blogPosts, setBlogPosts] = useState([]);
 
@@ -46,6 +50,18 @@ const Home = () => {
     getBlogPostsData();
   }, []);
 
+  //Update search value on change
+  const onInputChange = (e) => setSearchValue(e.target.value);
+
+  //On click, filter the blog posts with search value and update blogposts state
+  const onClickSearchBtn = () => {
+    const filteredBlogPosts = blogPosts.filter((eachBlog) =>
+      //Before filter, Convert the search value and title of blog post to lowercase to compare
+      eachBlog.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setBlogPosts(filteredBlogPosts);
+  };
+
   // Function to render the list of blog posts
   const renderBlogPosts = () => {
     return <PostList blogPosts={blogPosts} />;
@@ -71,7 +87,27 @@ const Home = () => {
   return (
     <div className="container">
       <Header />
-      <main className="home-page-content">{rederViewBasedOnApiStatus()}</main>
+
+      <main className="home-page-content">
+        <h1 className="blog-posts-title">Blog Posts</h1>
+        <form className="search-form">
+          <input
+            name="search"
+            type="text"
+            placeholder="Search"
+            value={searchValue}
+            onChange={onInputChange}
+          />
+          <button
+            type="button"
+            className="search-btn"
+            onClick={onClickSearchBtn}
+          >
+            <AiOutlineSearch size={24} color="#a6a6a6" />
+          </button>
+        </form>
+        {rederViewBasedOnApiStatus()}
+      </main>
     </div>
   );
 };
