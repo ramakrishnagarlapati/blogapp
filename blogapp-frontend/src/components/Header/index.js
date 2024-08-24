@@ -8,10 +8,10 @@ const Header = () => {
         </a>
         <ul className="navbar-nav">
           <li className="nav-item">
-            <button class="nav-btn">Login</button>
+            <button className="nav-btn">Login</button>
           </li>
           <li className="nav-item">
-            <button class="nav-btn">Register</button>
+            <button className="nav-btn">Register</button>
           </li>
         </ul>
       </nav>
