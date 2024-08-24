@@ -6,6 +6,7 @@ import PostList from "../../components/PostList";
 import { AiOutlineSearch } from "react-icons/ai";
 
 import "./index.css";
+import Footer from "../../components/Footer";
 
 //Constants to represent the status of the API call
 const apiStatusConstants = {
@@ -53,18 +54,46 @@ const Home = () => {
   //Update search value on change
   const onInputChange = (e) => setSearchValue(e.target.value);
 
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+  };
+
   //On click, filter the blog posts with search value and update blogposts state
   const onClickSearchBtn = () => {
-    const filteredBlogPosts = blogPosts.filter((eachBlog) =>
-      //Before filter, Convert the search value and title of blog post to lowercase to compare
-      eachBlog.title.toLowerCase().includes(searchValue.toLowerCase())
+    getBlogPostsData();
+  };
+
+  //if search value doesnot match with any title in blog posts, render no blog match view
+  const renderNoBlogsView = () => {
+    return (
+      <div>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png"
+          alt="no-blogs"
+          className="no-blogs-img"
+        />
+        <h3 className="no-blogs-title">No Blogs Found</h3>
+        <p>We couldnot find any blogs with the given value: {searchValue}</p>
+      </div>
     );
-    setBlogPosts(filteredBlogPosts);
   };
 
   // Function to render the list of blog posts
   const renderBlogPosts = () => {
-    return <PostList blogPosts={blogPosts} />;
+    const filteredBlogPosts = blogPosts.filter((eachBlog) =>
+      //Before filter, Convert the search value and title of blog post to lowercase to compare
+      eachBlog.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    if (filteredBlogPosts.length > 0) {
+      return (
+        <>
+          <PostList blogPosts={filteredBlogPosts} />
+          <Footer />
+        </>
+      );
+    }
+
+    return renderNoBlogsView();
   };
 
   // Function to render the failure view
@@ -90,11 +119,13 @@ const Home = () => {
 
       <main className="home-page-content">
         <h1 className="blog-posts-title">Blog Posts</h1>
-        <form className="search-form">
+
+        <form className="search-form" onSubmit={onFormSubmit}>
           <input
             name="search"
             type="text"
-            placeholder="Search"
+            placeholder="Search by blog title"
+            className="search-input"
             value={searchValue}
             onChange={onInputChange}
           />

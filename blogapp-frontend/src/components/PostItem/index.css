@@ -1,0 +1,20 @@
+.post-item-title {
+  font-style: italic;
+  font-weight: 600;
+  font-size: 24px;
+  color: #434850;
+}
+.post-item-content {
+  font-size: 16px;
+  margin: 10px 0;
+}
+.read-more-link {
+  color: rgb(206, 98, 59);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  transition: color 0.2s;
+}
+.read-more-link:hover {
+  color: rgb(249, 127, 83);
+}

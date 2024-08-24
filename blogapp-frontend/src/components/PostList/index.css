@@ -1,0 +1,12 @@
+.post-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+@media (min-width: 768px) {
+  .post-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+  }
+}

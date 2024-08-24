@@ -6,6 +6,7 @@ const Header = () => {
         <a className="navbar-brand" href="/">
           BLOG APP
         </a>
+
         <ul className="navbar-nav">
           <li className="nav-item">
             <button className="nav-btn">Login</button>
