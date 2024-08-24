@@ -8,13 +8,9 @@ import { AiOutlineSearch } from "react-icons/ai";
 import "./index.css";
 import Footer from "../../components/Footer";
 
-//Constants to represent the status of the API call
-const apiStatusConstants = {
-  initial: "INITIAL", // Initial state, before any API call
-  success: "SUCCESS", // State when API call is successful
-  failure: "FAILURE", // State when API call fails
-  inProgress: "IN_PROGRESS", // State when API call is in progress
-};
+//import apiStatusConstants object from constants folder
+import { apiStatusConstants } from "../../constants";
+
 const Home = () => {
   //state to store value searched by user
   const [searchValue, setSearchValue] = useState("");
