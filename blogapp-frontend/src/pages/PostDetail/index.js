@@ -22,6 +22,9 @@ const PostDetail = () => {
   //State to store post details
   const [postDetails, setPostDetails] = useState(null);
 
+  //State to store the value of new comment
+  const [commentContent, setCommentContent] = useState("");
+
   //State to store comments belongs to the post
   const [comments, setComments] = useState([]);
 
@@ -94,6 +97,8 @@ const PostDetail = () => {
       console.error(err.message);
     }
   };
+
+  //Function to render list of comments
   const renderCommentsList = () => {
     return (
       <ul className="comments-list">
@@ -102,6 +107,11 @@ const PostDetail = () => {
         ))}
       </ul>
     );
+  };
+
+  //Function to handle send API request to add a new comment
+  const handleCommentForm = (e) => {
+    e.preventDefault();
   };
   const renderBlogPost = () => {
     const { title, content, created_at: createdAt } = postDetails;
@@ -130,6 +140,19 @@ const PostDetail = () => {
           </div>
         </div>
         <div className="comments-container">
+          <form className="comment-form" onSubmit={handleCommentForm}>
+            <textarea
+              className="comment-form-control"
+              value={commentContent}
+              placeholder="Type your comment here"
+              onChange={(e) => setCommentContent(e.target.value)}
+              rows={4}
+              required
+            ></textarea>
+            <button className="add-comment-btn" type="submit">
+              Add Comment
+            </button>
+          </form>
           <h2 className="comments-heading">Comments</h2>
           {renderCommentsList()}
         </div>
