@@ -49,7 +49,7 @@ const PostDetail = () => {
   // useEffect hook to call getPostDetails when the component mounts
   useEffect(() => {
     getPostDetails();
-  }, []);
+  }, [postId]);
 
   // Function to handle retrying the API request
   const handleRetry = () => {
@@ -79,7 +79,7 @@ const PostDetail = () => {
     }
   };
   const renderBlogPost = () => {
-    const { id, title, content, created_at: createdAt } = postDetails;
+    const { title, content, created_at: createdAt } = postDetails;
     const timestamp = new Date(createdAt);
 
     // Extract date, month, and year from the timestamp
@@ -121,6 +121,8 @@ const PostDetail = () => {
       case apiStatusConstants.failure:
         // Render the failure view if the API call fails
         return renderFailureView();
+      default:
+        return null;
     }
   };
   return (

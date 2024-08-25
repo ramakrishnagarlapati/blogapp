@@ -8,15 +8,15 @@ const Footer = () => {
     <footer className="footer">
       <h3 className="footer-title">BLOG APP</h3>
       <nav className="footer-nav">
-        <a href="" className="footer-nav-link">
-          <LuInstagram className="footer-nav-link-icon" />
-        </a>
-        <a href="" className="footer-nav-link">
-          <FiYoutube className="footer-nav-link-icon" />
-        </a>
-        <a href="" className="footer-nav-link">
-          <FiTwitter className="footer-nav-link-icon" />
-        </a>
+        <button className="footer-nav-button">
+          <LuInstagram className="footer-nav-icon" />
+        </button>
+        <button className="footer-nav-button">
+          <FiYoutube className="footer-nav-icon" />
+        </button>
+        <button className="footer-nav-button">
+          <FiTwitter className="footer-nav-icon" />
+        </button>
       </nav>
       <p className="made-by">
         Made by <span className="made-by-sub-part">Ramakrishna Garlapati</span>

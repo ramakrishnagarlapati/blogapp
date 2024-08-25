@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import "./index.css";
@@ -11,8 +11,6 @@ const PostForm = ({ post = {}, onSave }) => {
 
   // State to track validation errors
   const [errors, setErrors] = useState({});
-
-  const history = useHistory();
 
   //Validation function to ensure title and content are not empty
   const validate = () => {

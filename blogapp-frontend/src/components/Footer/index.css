@@ -17,15 +17,19 @@
   align-items: center;
   gap: 20px;
 }
-.footer-nav-link {
-  color: #434444;
-  transition: color 0.2s;
+.footer-nav-button {
+  background-color: inherit;
+  cursor: pointer;
+  outline: none;
+  border: none;
 }
-.footer-nav-link:hover {
-  color: orangered;
-}
-.footer-nav-link-icon {
+
+.footer-nav-icon {
   font-size: 20px;
+  transition: all 0.3s;
+}
+.footer-nav-icon:hover {
+  color: orangered;
 }
 .made-by {
   color: #434444;

@@ -102,6 +102,8 @@ const Home = () => {
       case apiStatusConstants.failure:
         // Render the failure view if the API call fails
         return renderFailureView();
+      default:
+        return null;
     }
   };
   return (

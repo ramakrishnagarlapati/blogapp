@@ -36,7 +36,7 @@ const PostEdit = () => {
   //Hook to call fetchPost when the component mounts
   useEffect(() => {
     fetchPost();
-  });
+  }, [postId]);
 
   //Function to handle redirceting to post details page after successful updation
   const handleSave = () => {
