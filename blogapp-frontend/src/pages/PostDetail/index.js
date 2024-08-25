@@ -6,6 +6,7 @@ import { IoArrowBack } from "react-icons/io5";
 
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
+import FailureView from "../../components/FailureView";
 import { apiStatusConstants } from "../../constants";
 
 import "./index.css";
@@ -33,6 +34,9 @@ const PostDetail = () => {
   useEffect(() => {
     getPostDetails();
   }, []);
+  const handleRetry = () => {
+    getPostDetails();
+  };
   const onClickEditBtn = () => {
     history.push(`/posts/${postId}/edit`);
   };
@@ -78,7 +82,7 @@ const PostDetail = () => {
       </>
     );
   };
-  const renderFailureView = () => {};
+  const renderFailureView = () => <FailureView onRetry={handleRetry} />;
   // Function to render the appropriate view based on the API status
   const rederViewBasedOnApiStatus = () => {
     switch (apiStatus) {
