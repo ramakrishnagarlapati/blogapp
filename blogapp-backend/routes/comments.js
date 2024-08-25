@@ -8,7 +8,11 @@ const db = require("../database");
 router.post("/posts/:postId/comments", (req, res) => {
   const { postId } = req.params;
   const { content } = req.body;
-
+  // Check if either content is missing or empty
+  if (!content) {
+    //handle client error for absence of form values
+    return res.status(400).json({ error: "content is required." });
+  }
   db.run(
     "INSERT INTO comments (post_id, content) VALUES (?, ?)",
     [postId, content],
