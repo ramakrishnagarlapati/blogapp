@@ -149,3 +149,7 @@ The backend provides the following API endpoints for interacting with blog posts
     }
     ```
   - Response: JSON object with the new comment's ID.
+
+### Note
+
+Please note that due to time constraints, I was unable to develop custom APIs for user registration and login verification. Instead, I integrated an external API to handle user authentication for this application. Thank you for your understanding.
