@@ -1,24 +1,42 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+
 import "./index.css";
+
+//PostForm allows creating or editing a blog post
 const PostForm = ({ post = {}, onSave }) => {
+  //set variables for title and content of the post, intialised with empty string or value from post
   const [title, setTitle] = useState(post.title || "");
   const [content, setContent] = useState(post.content || "");
+
+  // State to track validation errors
   const [errors, setErrors] = useState({});
+
   const history = useHistory();
+
+  //Validation function to ensure title and content are not empty
   const validate = () => {
     const newErrors = {};
     if (!title) newErrors.title = "*Title is required";
     if (!content) newErrors.content = "*Content is required";
     setErrors(newErrors);
+    //return true if there are any validation errors
     return Object.keys(errors).length === 0;
   };
+
+  //Handle form submission to either create or update a post
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //Validate from inputs
     if (!validate()) return;
+
+    //data to be sent to the server
     const postData = { title, content };
+
     try {
+      //If post ID exists, Update the post. Else, create a post
       if (post.id) {
+        //Updating the post with new values
         const response = await fetch(
           `https://blogapp-4e6d.onrender.com/posts/${post.id}`,
           {
@@ -31,9 +49,11 @@ const PostForm = ({ post = {}, onSave }) => {
         );
 
         if (response.ok) {
+          // Call onSave callback after successful update
           onSave();
         }
       } else {
+        //creating new post
         const response = await fetch(
           "https://blogapp-4e6d.onrender.com/posts",
           {
@@ -80,6 +100,8 @@ const PostForm = ({ post = {}, onSave }) => {
         />
         {errors.content && <p className="error-message">{errors.content}</p>}
       </div>
+
+      {/* Submit button changes text based on whether the post is being created or updated */}
       <button type="submit" className="form-button">
         {post.id ? "Update Post" : "Create Post"}
       </button>

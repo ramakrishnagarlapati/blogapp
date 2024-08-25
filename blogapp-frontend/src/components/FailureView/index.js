@@ -3,6 +3,7 @@ import React from "react";
 import "./index.css";
 
 const FailureView = ({ onRetry }) => {
+  // Function to handle the retry button click
   const onClickRetryButton = () => {
     onRetry();
   };
@@ -18,6 +19,7 @@ const FailureView = ({ onRetry }) => {
         We are having some trouble to complete your request. Please try again
         later.
       </p>
+      {/* Button to retry the action */}
       <button
         className="retry-button"
         type="button"

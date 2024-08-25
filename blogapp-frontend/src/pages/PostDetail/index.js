@@ -14,32 +14,54 @@ import Header from "../../components/Header";
 
 const PostDetail = () => {
   const history = useHistory();
+
+  //Get postId from URL params
   const { postId } = useParams();
+
+  //State to store post details
   const [postDetails, setPostDetails] = useState(null);
+
+  // State to track the API call status
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial);
+
+  //Function to fetch post details from the API
   const getPostDetails = async () => {
+    // Set status to inProgress before fetching data
     setApiStatus(apiStatusConstants.inProgress);
+
+    // Fetch post details from the API
     const response = await fetch(
       `https://blogapp-4e6d.onrender.com/posts/${postId}`
     );
+
     if (response.ok) {
+      // If the response is successful, Update apiStatus and post details states
       const data = await response.json();
       const { post } = data;
       setPostDetails(post);
       setApiStatus(apiStatusConstants.success);
     } else {
+      // Update status to failure
       setApiStatus(apiStatusConstants.failure);
     }
   };
+
+  // useEffect hook to call getPostDetails when the component mounts
   useEffect(() => {
     getPostDetails();
   }, []);
+
+  // Function to handle retrying the API request
   const handleRetry = () => {
     getPostDetails();
   };
+
+  // Function to navigate to the edit page
   const onClickEditBtn = () => {
     history.push(`/posts/${postId}/edit`);
   };
+
+  // Function to handle deleting a post
   const onClickDeleteBtn = async () => {
     try {
       const response = await fetch(
@@ -49,6 +71,7 @@ const PostDetail = () => {
         }
       );
       if (response.ok) {
+        //Navigate to the home page after successful deletion
         history.replace("/");
       }
     } catch (err) {
@@ -59,10 +82,11 @@ const PostDetail = () => {
     const { id, title, content, created_at: createdAt } = postDetails;
     const timestamp = new Date(createdAt);
 
+    // Extract date, month, and year from the timestamp
     const date = timestamp.getDate();
     const month = timestamp.toLocaleString("default", { month: "short" });
-
     const year = timestamp.getFullYear();
+
     return (
       <>
         <div className="post-details-container">
@@ -70,9 +94,11 @@ const PostDetail = () => {
           <p className="post-content">{content}</p>
           <p className="post-timestamp">{`Written on ${month} ${date}, ${year}`}</p>
           <div className="btns-group">
+            {/* Button to navigate to the edit page */}
             <button className="post-btn" onClick={onClickEditBtn}>
               <FiEdit size={16} color="#fff" /> Edit this post
             </button>
+            {/* Button to delete a post*/}
             <button className="post-btn" onClick={onClickDeleteBtn}>
               <MdOutlineDelete size={18} color="#fff" /> Delete this post
             </button>
@@ -101,6 +127,7 @@ const PostDetail = () => {
     <div className="post-details-page-container">
       <Header />
       <main className="post-details-main-container">
+        {/*Link to navigate back to list of all posts*/}
         <Link className="all-posts-link" to="/">
           <IoArrowBack /> All Posts
         </Link>

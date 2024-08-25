@@ -4,9 +4,11 @@ import "./index.css";
 
 const Header = () => {
   const history = useHistory();
+  //Function to handle the redirecting to new post form
   const onClickCreatePostBtn = () => {
     history.push("/posts/new");
   };
+
   return (
     <header className="header">
       <nav className="navbar">

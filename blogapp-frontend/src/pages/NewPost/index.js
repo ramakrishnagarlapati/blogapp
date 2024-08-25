@@ -9,6 +9,7 @@ import Footer from "../../components/Footer";
 import "./index.css";
 const NewPost = () => {
   const history = useHistory();
+  //Function to handle the redirect after successful post creation
   const handleSave = () => {
     history.push("/");
   };

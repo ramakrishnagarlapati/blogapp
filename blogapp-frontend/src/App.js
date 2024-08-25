@@ -9,9 +9,16 @@ function App() {
   return (
     <div className="App">
       <Switch>
+        {/*Home page route */}
         <Route exact path="/" component={Home} />
+
+        {/*Route for creating a new post */}
         <Route exact path="/posts/new" component={NewPost} />
+
+        {/*Route for viewing a specific post */}
         <Route exact path="/posts/:postId" component={PostDetail} />
+
+        {/*Route for editing an existing post */}
         <Route exact path="/posts/:postId/edit" component={PostEdit} />
       </Switch>
     </div>
