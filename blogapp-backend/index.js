@@ -14,7 +14,7 @@ const postsRouter = require("./routes/posts");
 app.use("/", postsRouter);
 
 //define the port
-const port = 3000;
+const port = 4000;
 
 //start the server and listen on the specified port
 app.listen(port, () => console.log(`Server running on port ${port}`));
