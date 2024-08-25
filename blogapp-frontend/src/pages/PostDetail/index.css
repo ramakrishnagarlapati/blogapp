@@ -87,3 +87,29 @@
   text-decoration: none;
   color: rgb(159, 116, 116);
 }
+
+.comments-container {
+  margin-top: 30px;
+}
+.comments-heading {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+.comments-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+@media screen and (min-width: 768px) {
+  .comments-container {
+    margin-top: 40px;
+  }
+  .comments-heading {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+  .comments-list {
+    gap: 30px;
+  }
+}

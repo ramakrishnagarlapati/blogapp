@@ -6,6 +6,7 @@ import { IoArrowBack } from "react-icons/io5";
 
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
+import CommentItem from "../../components/CommentItem";
 import FailureView from "../../components/FailureView";
 import { apiStatusConstants } from "../../constants";
 
@@ -20,6 +21,9 @@ const PostDetail = () => {
 
   //State to store post details
   const [postDetails, setPostDetails] = useState(null);
+
+  //State to store comments belongs to the post
+  const [comments, setComments] = useState([]);
 
   // State to track the API call status
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial);
@@ -46,10 +50,22 @@ const PostDetail = () => {
     }
   };
 
+  const fetchComments = async () => {
+    const response = await fetch(
+      `https://blogapp-4e6d.onrender.com/posts/${postId}/comments`
+    );
+    const data = await response.json();
+    if (response.ok) {
+      setComments(data.comments);
+    }
+  };
+  useEffect(() => {
+    fetchComments();
+  }, []);
   // useEffect hook to call getPostDetails when the component mounts
   useEffect(() => {
     getPostDetails();
-  }, [postId]);
+  }, []);
 
   // Function to handle retrying the API request
   const handleRetry = () => {
@@ -78,6 +94,15 @@ const PostDetail = () => {
       console.error(err.message);
     }
   };
+  const renderCommentsList = () => {
+    return (
+      <ul className="comments-list">
+        {comments.map((eachComment) => (
+          <CommentItem key={eachComment.id} commentDetails={eachComment} />
+        ))}
+      </ul>
+    );
+  };
   const renderBlogPost = () => {
     const { title, content, created_at: createdAt } = postDetails;
     const timestamp = new Date(createdAt);
@@ -103,6 +128,10 @@ const PostDetail = () => {
               <MdOutlineDelete size={18} color="#fff" /> Delete this post
             </button>
           </div>
+        </div>
+        <div className="comments-container">
+          <h2 className="comments-heading">Comments</h2>
+          {renderCommentsList()}
         </div>
         <Footer />
       </>
