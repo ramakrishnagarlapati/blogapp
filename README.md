@@ -82,6 +82,8 @@ Open your web browser and go to http://localhost:3000 to view the application.
 - Edit Post: Edit existing blog posts.
 - Create Post: Form to create new blog posts.
 - Delete Post: Remove posts from the application.
+- Add comment: user can add comments to blog post
+- view comments: list of comments associated with particular post
 
 ### Usage
 
@@ -89,6 +91,7 @@ Open your web browser and go to http://localhost:3000 to view the application.
 2. Viewing Posts: The homepage displays a list of all posts. Click on a post title to view more details.
 3. Editing a Post: Click the "Edit this post" button on the post details page to modify the post.
 4. Deleting a Post: Click the "Delete this post" button on the post details page to remove the post.
+5. Add a comment: fill the comment field and click on "Add Comment" button to add comment to the blog post
 
 ### API Endpoints
 
@@ -124,4 +127,18 @@ The backend provides the following API endpoints for interacting with blog posts
     JSON object with a success message and the number of updated rows.
 
 - DELETE /posts/:postId : Delete a blog post by its ID.
+
   - Response: JSON object with a success message and the number of deleted rows.
+
+- GET /posts/:postId/comments : Retrieve a list of all comments associated with that blog post id.
+
+- POST /posts/:postId/comments: Create a new comment.
+
+  - Request Body:
+    ```json
+    {
+      "postId": 2,
+      "content": "Comment Content"
+    }
+    ```
+  - Response: JSON object with the new comment's ID.
