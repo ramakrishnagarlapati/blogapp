@@ -13,6 +13,15 @@ db.serialize(() => {
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP 
           )`);
 
+  //Create Comments table if it does not already exists
+  db.run(`CREATE TABLE IF NOT EXISTS comments(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    post_id INTEGER,
+    content TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(id)
+    )`);
+
   //Get number of entries in posts table to check if it is empty
   db.get("SELECT COUNT(*) AS count FROM posts", (err, res) => {
     if (err) {
@@ -39,6 +48,27 @@ db.serialize(() => {
               ("There was only one way to do things in the Statton house.","There was only one way to do things in the Statton house. That one way was to do exactly what the father, Charlie, demanded. He made the decisions and everyone else followed without question. That was until today."),
               ("She was in a hurry.","She was in a hurry. Not the standard hurry when you're in a rush to get someplace, but a frantic hurry. The type of hurry where a few seconds could mean life or death. She raced down the road ignoring speed limits and weaving between cars. She was only a few minutes away when traffic came to a dead standstill on the road ahead.")
               `);
+    }
+  });
+  //Get number of entries in comments table to check if it is empty
+  db.get("SELECT COUNT(*) AS count FROM comments", (err, res) => {
+    if (err) {
+      console.error(err.message);
+    }
+    //If comments table is empty, Insert some dummy data
+    if (res.count === 0) {
+      db.run(`INSERT INTO comments (post_id, content) VALUES
+              (2, 'Great post!'),
+              (2, 'Very insightful, thanks!'),
+              (2, 'Interesting read.'),
+              (3, 'I enjoyed this article.'),
+              (3, 'Not quite what I expected.'),
+              (5, 'This was helpful, thanks!'),
+              (6, 'Nice write-up!'),
+              (7, 'I disagree with some points.'),
+              (8, 'Well written.'),
+              (9, 'Could use more details.'),
+              (10, 'Fantastic read, loved it!')`);
     }
   });
 });
