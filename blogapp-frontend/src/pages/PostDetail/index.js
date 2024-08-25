@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
+import { MdOutlineDelete } from "react-icons/md";
+import { IoArrowBack } from "react-icons/io5";
 
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -10,6 +12,7 @@ import "./index.css";
 import Header from "../../components/Header";
 
 const PostDetail = () => {
+  const history = useHistory();
   const { postId } = useParams();
   const [postDetails, setPostDetails] = useState(null);
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial);
@@ -30,6 +33,24 @@ const PostDetail = () => {
   useEffect(() => {
     getPostDetails();
   }, []);
+  const onClickEditBtn = () => {
+    history.push(`/posts/${postId}/edit`);
+  };
+  const onClickDeleteBtn = async () => {
+    try {
+      const response = await fetch(
+        `https://blogapp-4e6d.onrender.com/posts/${postId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        history.replace("/");
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
   const renderBlogPost = () => {
     const { id, title, content, created_at: createdAt } = postDetails;
     const timestamp = new Date(createdAt);
@@ -44,9 +65,14 @@ const PostDetail = () => {
           <h1 className="post-title">{title}</h1>
           <p className="post-content">{content}</p>
           <p className="post-timestamp">{`Written on ${month} ${date}, ${year}`}</p>
-          <button className="edit-post-btn">
-            <FiEdit size={16} color="#fff" /> Edit this post
-          </button>
+          <div className="btns-group">
+            <button className="post-btn" onClick={onClickEditBtn}>
+              <FiEdit size={16} color="#fff" /> Edit this post
+            </button>
+            <button className="post-btn" onClick={onClickDeleteBtn}>
+              <MdOutlineDelete size={18} color="#fff" /> Delete this post
+            </button>
+          </div>
         </div>
         <Footer />
       </>
@@ -71,6 +97,9 @@ const PostDetail = () => {
     <div className="post-details-page-container">
       <Header />
       <main className="post-details-main-container">
+        <Link className="all-posts-link" to="/">
+          <IoArrowBack /> All Posts
+        </Link>
         {rederViewBasedOnApiStatus()}
       </main>
     </div>

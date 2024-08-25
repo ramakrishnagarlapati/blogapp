@@ -9,13 +9,13 @@ const Footer = () => {
       <h3 className="footer-title">BLOG APP</h3>
       <nav className="footer-nav">
         <a href="#" className="footer-nav-link">
-          <LuInstagram size={24} />
+          <LuInstagram className="footer-nav-link-icon" />
         </a>
         <a href="#" className="footer-nav-link">
-          <FiYoutube size={24} />
+          <FiYoutube className="footer-nav-link-icon" />
         </a>
         <a href="#" className="footer-nav-link">
-          <FiTwitter size={24} />
+          <FiTwitter className="footer-nav-link-icon" />
         </a>
       </nav>
       <p className="made-by">

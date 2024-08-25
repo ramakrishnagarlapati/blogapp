@@ -6,13 +6,13 @@
   align-items: center;
 }
 .footer-title {
-  font-size: 24px;
+  font-size: 20px;
   color: #434444;
   font-weight: 700;
   letter-spacing: 1px;
 }
 .footer-nav {
-  margin: 30px 0;
+  margin: 20px 0;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -24,11 +24,28 @@
 .footer-nav-link:hover {
   color: orangered;
 }
+.footer-nav-link-icon {
+  font-size: 20px;
+}
 .made-by {
   color: #434444;
-  font-size: 14px;
+  font-size: 12px;
 }
 .made-by-sub-part {
   display: inline-block;
   border-bottom: 1px solid #434444;
+}
+@media (min-width: 768px) {
+  .footer-title {
+    font-size: 24px;
+  }
+  .footer-nav {
+    margin: 30px 0;
+  }
+  .footer-nav-link-icon {
+    font-size: 24px;
+  }
+  .made-by {
+    font-size: 14px;
+  }
 }

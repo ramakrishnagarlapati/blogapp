@@ -1,5 +1,12 @@
+import { useHistory } from "react-router-dom";
+
 import "./index.css";
+
 const Header = () => {
+  const history = useHistory();
+  const onClickCreatePostBtn = () => {
+    history.push("/posts/new");
+  };
   return (
     <header className="header">
       <nav className="navbar">
@@ -9,10 +16,12 @@ const Header = () => {
 
         <ul className="navbar-nav">
           <li className="nav-item">
-            <button className="nav-btn">Login</button>
+            <p className="greet-message">Hello! User</p>
           </li>
           <li className="nav-item">
-            <button className="nav-btn">Register</button>
+            <button className="nav-btn" onClick={onClickCreatePostBtn}>
+              Create New post
+            </button>
           </li>
         </ul>
       </nav>

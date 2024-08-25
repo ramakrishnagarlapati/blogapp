@@ -55,7 +55,11 @@
 .post-timestamp {
   font-size: 14px;
 }
-.edit-post-btn {
+.btns-group {
+  display: flex;
+  gap: 16px;
+}
+.post-btn {
   background-color: #434444;
   color: aliceblue;
   padding: 10px 16px;
@@ -69,7 +73,17 @@
   gap: 5px;
   transition: all 0.2s;
 }
-.edit-post-btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 1px 2px 2px rgb(0 0 0 / 0.3);
+.post-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 2px 1px rgb(0 0 0 / 0.3);
+}
+.all-posts-link {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-decoration: none;
+  color: rgb(159, 116, 116);
 }
