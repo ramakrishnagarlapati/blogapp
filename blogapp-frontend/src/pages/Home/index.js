@@ -7,6 +7,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 import "./index.css";
 import Footer from "../../components/Footer";
+import NoBlogsView from "../../components/NoBlogsView";
 
 //import apiStatusConstants object from constants folder
 import { apiStatusConstants } from "../../constants";
@@ -60,19 +61,7 @@ const Home = () => {
   };
 
   //if search value doesnot match with any title in blog posts, render no blog match view
-  const renderNoBlogsView = () => {
-    return (
-      <div>
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png"
-          alt="no-blogs"
-          className="no-blogs-img"
-        />
-        <h3 className="no-blogs-title">No Blogs Found</h3>
-        <p>We couldnot find any blogs with the given value: {searchValue}</p>
-      </div>
-    );
-  };
+  const renderNoBlogsView = () => <NoBlogsView searchValue={searchValue} />;
 
   // Function to render the list of blog posts
   const renderBlogPosts = () => {

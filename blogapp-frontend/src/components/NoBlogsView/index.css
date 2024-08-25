@@ -1,0 +1,34 @@
+.no-blogs-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.no-blogs-img {
+  width: 250px;
+  height: 200px;
+}
+.no-blogs-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #434444;
+}
+.no-blogs-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #434444;
+}
+@media (min-width: 768px) {
+  .no-blogs-img {
+    width: 400px;
+    height: 350px;
+  }
+  .no-blogs-title {
+    font-size: 24px;
+  }
+  .no-blogs-desc {
+    font-size: 16px;
+  }
+}
