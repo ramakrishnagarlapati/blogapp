@@ -89,3 +89,39 @@ Open your web browser and go to http://localhost:3000 to view the application.
 2. Viewing Posts: The homepage displays a list of all posts. Click on a post title to view more details.
 3. Editing a Post: Click the "Edit this post" button on the post details page to modify the post.
 4. Deleting a Post: Click the "Delete this post" button on the post details page to remove the post.
+
+### API Endpoints
+
+The backend provides the following API endpoints for interacting with blog posts:
+
+- GET /posts : Retrieve a list of all blog posts.
+
+- GET /posts/:postId : Retrieve the details of a specific blog post by its ID.
+- POST /posts: Create a new blog post.
+
+  - Request Body:
+    ```json
+    {
+      "title": "Post Title",
+      "content": "Post Content"
+    }
+    ```
+  - Response: JSON object with the new post's ID.
+
+- PUT /posts/:postId : Update an existing blog post by its ID.
+
+  - Request Body:
+
+  ```json
+  {
+    "title": "Updated Post Title",
+    "content": "Updated Post Content"
+  }
+  ```
+
+  - Response:
+    Body:
+    JSON object with a success message and the number of updated rows.
+
+- DELETE /posts/:postId : Delete a blog post by its ID.
+  - Response: JSON object with a success message and the number of deleted rows.
