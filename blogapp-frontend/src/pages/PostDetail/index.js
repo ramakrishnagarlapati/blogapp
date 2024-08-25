@@ -23,7 +23,7 @@ const PostDetail = () => {
   const [postDetails, setPostDetails] = useState(null);
 
   //State to store the value of new comment
-  const [commentContent, setCommentContent] = useState("");
+  const [newComment, setNewComment] = useState("");
 
   //State to store comments belongs to the post
   const [comments, setComments] = useState([]);
@@ -62,12 +62,10 @@ const PostDetail = () => {
       setComments(data.comments);
     }
   };
-  useEffect(() => {
-    fetchComments();
-  }, []);
   // useEffect hook to call getPostDetails when the component mounts
   useEffect(() => {
     getPostDetails();
+    fetchComments();
   }, []);
 
   // Function to handle retrying the API request
@@ -110,8 +108,36 @@ const PostDetail = () => {
   };
 
   //Function to handle send API request to add a new comment
-  const handleCommentForm = (e) => {
+  const handleCommentForm = async (e) => {
     e.preventDefault();
+    if (!newComment) {
+      alert("Comment Cannot be empty");
+      return;
+    }
+
+    try {
+      const commentDetails = {
+        postId,
+        content: newComment,
+      };
+      const response = await fetch(
+        `https://blogapp-4e6d.onrender.com/posts/${postId}/comments`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(commentDetails),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to post comment");
+      }
+      setNewComment("");
+      fetchComments();
+    } catch (err) {
+      console.error(err);
+    }
   };
   const renderBlogPost = () => {
     const { title, content, created_at: createdAt } = postDetails;
@@ -143,9 +169,9 @@ const PostDetail = () => {
           <form className="comment-form" onSubmit={handleCommentForm}>
             <textarea
               className="comment-form-control"
-              value={commentContent}
+              value={newComment}
               placeholder="Type your comment here"
-              onChange={(e) => setCommentContent(e.target.value)}
+              onChange={(e) => setNewComment(e.target.value)}
               rows={4}
               required
             ></textarea>
