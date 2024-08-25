@@ -73,7 +73,14 @@ The frontend development server will now be running on `http://localhost:3000`.
 
 ### 6. Access the Application
 
-Open your web browser and go to http://localhost:3000 to view the application.
+1. Open your web browser and go to http://localhost:3000 to view the application.
+
+2. Log in to the application using the following credentials:
+
+Username: 'rahul'
+Password: 'rahul@2021'
+
+3. After logging in, you can start creating and managing your blog posts.
 
 ### Features
 
