@@ -7,6 +7,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 import "./index.css";
 import Footer from "../../components/Footer";
+import FailureView from "../../components/FailureView";
 import NoBlogsView from "../../components/NoBlogsView";
 
 //import apiStatusConstants object from constants folder
@@ -60,6 +61,11 @@ const Home = () => {
     getBlogPostsData();
   };
 
+  //Function to handle retry getting blog posts from server
+  const handleRetry = () => {
+    getBlogPostsData();
+  };
+
   //if search value doesnot match with any title in blog posts, render no blog match view
   const renderNoBlogsView = () => <NoBlogsView searchValue={searchValue} />;
 
@@ -82,7 +88,7 @@ const Home = () => {
   };
 
   // Function to render the failure view
-  const renderFailureView = () => {};
+  const renderFailureView = () => <FailureView onRetry={handleRetry} />;
 
   // Function to render the appropriate view based on the API status
   const rederViewBasedOnApiStatus = () => {

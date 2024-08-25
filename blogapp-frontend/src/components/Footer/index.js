@@ -8,13 +8,13 @@ const Footer = () => {
     <footer className="footer">
       <h3 className="footer-title">BLOG APP</h3>
       <nav className="footer-nav">
-        <a href="#" className="footer-nav-link">
+        <a href="" className="footer-nav-link">
           <LuInstagram className="footer-nav-link-icon" />
         </a>
-        <a href="#" className="footer-nav-link">
+        <a href="" className="footer-nav-link">
           <FiYoutube className="footer-nav-link-icon" />
         </a>
-        <a href="#" className="footer-nav-link">
+        <a href="" className="footer-nav-link">
           <FiTwitter className="footer-nav-link-icon" />
         </a>
       </nav>
