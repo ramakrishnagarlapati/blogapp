@@ -11,14 +11,14 @@ router.post("/posts/:postId/comments", (req, res) => {
   // Check if either content is missing or empty
   if (!content) {
     //handle client error for absence of form values
-    return res.status(400).json({ error: "content is required." });
+    return res.status(400).send({ error: "content is required." });
   }
   db.run(
     "INSERT INTO comments (post_id, content) VALUES (?, ?)",
     [postId, content],
     function (err) {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ id: this.lastID });
+      if (err) return res.status(500).send({ error: err.message });
+      res.send({ id: this.lastID });
     }
   );
 });
@@ -27,8 +27,8 @@ router.get("/posts/:postId/comments", (req, res) => {
   const { postId } = req.params;
 
   db.all("SELECT * FROM comments WHERE post_id = ?", [postId], (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ comments: rows });
+    if (err) return res.status(500).send({ error: err.message });
+    res.send({ comments: rows });
   });
 });
 

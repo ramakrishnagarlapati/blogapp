@@ -1,12 +1,10 @@
 //import necessary modules for use
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 
 //create an express instance
 const app = express();
 
-app.use(cors());
 app.use(bodyParser.json()); //Parse incoming JSON request bodies
 
 //import the routers for use

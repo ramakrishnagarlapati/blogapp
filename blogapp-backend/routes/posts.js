@@ -3,16 +3,17 @@ const express = require("express");
 
 //create a router instance for handling routes
 const router = express.Router();
+
 const db = require("../database");
 
 //Get all posts
 router.get("/posts", (req, res) => {
   db.all("SELECT * FROM posts", [], (err, rows) => {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).send({ error: err.message });
     }
     //respond with list of posts
-    res.json({ posts: rows });
+    res.send({ posts: rows });
   });
 });
 
@@ -22,11 +23,15 @@ router.get("/posts/:postId", (req, res) => {
   const { postId } = req.params;
   db.get("SELECT * FROM posts WHERE id = ?", [postId], (err, row) => {
     //handle errors that occur during the query
-    if (err) return res.status(500).json({ error: err.message });
+    if (err) {
+      return res.status(500).send({ error: err.message });
+    }
     //handle in case if post is not found
-    if (!row) return res.status(404).json({ message: "Post not found" });
+    if (row === undefined) {
+      return res.status(404).send({ message: "Post not found" });
+    }
     //respond with specific post
-    res.json({ post: row });
+    res.send({ post: row });
   });
 });
 
@@ -38,7 +43,7 @@ router.post("/posts", (req, res) => {
   // Check if either title or content is missing or empty
   if (!title || !content) {
     //handle client error for absence of form values
-    return res.status(400).json({ error: "Title and content are required." });
+    return res.status(400).send({ error: "Title and content are required." });
   }
 
   db.run(
@@ -46,9 +51,11 @@ router.post("/posts", (req, res) => {
     [title, content],
     function (err) {
       //handle errors that occur during the query
-      if (err) return res.status(500).json({ error: err.message });
+      if (err) {
+        return res.status(500).send({ error: err.message });
+      }
       //respond with postId of the newly created post
-      res.json({ postId: this.lastID });
+      res.send({ postId: this.lastID });
     }
   );
 });
@@ -63,14 +70,17 @@ router.put("/posts/:postId", (req, res) => {
     [title, content, postId],
     function (err) {
       //handle errors that occur during the query
-      if (err) return res.status(500).json({ error: err.message });
+      if (err) {
+        return res.status(500).send({ error: err.message });
+      }
       //handle in case if post is not found
-      if (this.changes === 0)
-        return res.status(404).json({ message: "Post not found" });
+      if (this.changes === 0) {
+        return res.status(404).send({ message: "Post not found" });
+      }
+
       //respond with a success message and number of updated rows
-      res.json({
+      res.send({
         message: "Post Updated Successfully",
-        updatedRows: this.changes,
       });
     }
   );
@@ -82,14 +92,16 @@ router.delete("/posts/:postId", (req, res) => {
   const { postId } = req.params;
   db.run("DELETE FROM posts WHERE id = ?", [postId], function (err) {
     //handle errors that occur during the query
-    if (err) return res.status(500).json({ error: err.message });
+    if (err) {
+      return res.status(500).send({ error: err.message });
+    }
     //handle in case if post is not found
-    if (this.changes === 0)
-      return res.status(404).json({ message: "Post not found" });
+    if (this.changes === 0) {
+      return res.status(404).send({ message: "Post not found" });
+    }
     //respond with a success message and number of deleted rows
-    res.json({
+    res.send({
       message: "Post Deleted Successfully",
-      deletedRows: this.changes,
     });
   });
 });
